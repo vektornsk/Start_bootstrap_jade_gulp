@@ -7,12 +7,17 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync').create(),
 	uglify = require('gulp-uglifyjs'),
 	clean = require('gulp-clean'),
-	imgMin = require('gulp-image-optimization');
+	imgMin = require('gulp-image-optimization'),
+	notify = require( 'gulp-notify' );
 
 // Less
 gulp.task('less', function(){
 	return gulp.src('app/less/style.less')
 		.pipe(less())
+		.on('error', notify.onError({
+			title: 'LESS ERROR compilation',
+			message: '<%= error.message%>'
+		}))
 		.pipe(autoprefixer({browsers: ['last 15 versions'], cascade: false}))
 		.pipe(gulp.dest('app/css'))
 		.pipe(browserSync.stream());
@@ -22,6 +27,10 @@ gulp.task('jade', function(){
 	return gulp.src('app/jade/*.jade')
 	.pipe(jade({
 		pretty: true
+	}))
+	.on('error', notify.onError({
+		title: 'JADE ERROR compilation',
+		message: '<%= error.message%>'
 	}))
 	.pipe(gulp.dest('app/html'));
 });
