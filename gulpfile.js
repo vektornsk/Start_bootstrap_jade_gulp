@@ -10,6 +10,25 @@ var gulp = require('gulp'),
 	imgMin = require('gulp-image-optimization'),
 	notify = require( 'gulp-notify' );
 
+/* es2015, react
+* babel = require('gulp-babel'),
+* browserify = require('gulp-browserify');
+* npm install --save-dev gulp-babel
+* npm install --save-dev gulp-browserify
+* npm install --save-dev babel-preset-react
+* npm install --save-dev babel-preset-react
+==================================================
+gulp.task('app', function() {
+	return gulp.src('app/js/react/app.js')
+		.pipe(babel({
+			"presets": ["react", "es2015"]
+		}))
+		.pipe(browserify())
+		.pipe(gulp.dest("app/js"));
+});
+*/
+
+
 // Less
 gulp.task('less', function(){
 	return gulp.src('app/less/style.less')
