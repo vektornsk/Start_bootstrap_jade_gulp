@@ -27,7 +27,21 @@ gulp.task('app', function() {
 		.pipe(gulp.dest("app/js"));
 });
 */
-
+/*
+// jsx
+browserify = require('browserify'),
+babelify = require('babelify'),
+source = require('vinyl-source-stream');
+	
+gulp.task('app', function () {
+    return browserify({entries: 'app/js/react/app.js', debug: true})
+        .transform('babelify', {presets: ['es2015', 'react']})
+        .bundle()
+        .on('error', function(err) { console.error(err); this.emit('end'); })
+        .pipe(source('app.js'))
+        .pipe(gulp.dest('app/js'));
+});
+*/
 
 // Less
 gulp.task('less', function(){
