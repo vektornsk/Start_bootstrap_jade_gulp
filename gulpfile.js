@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 	less = require('gulp-less'),
+	sourcemaps = require('gulp-sourcemaps'),
 	jade = require('gulp-jade'),
 	autoprefixer = require('gulp-autoprefixer'),
 	watch = require('watch'),
@@ -32,7 +33,7 @@ gulp.task('app', function() {
 browserify = require('browserify'),
 babelify = require('babelify'),
 source = require('vinyl-source-stream');
-	
+
 gulp.task('app', function () {
     return browserify({entries: 'app/js/react/app.js', debug: true})
         .transform('babelify', {presets: ['es2015', 'react']})
@@ -46,12 +47,14 @@ gulp.task('app', function () {
 // Less
 gulp.task('less', function(){
 	return gulp.src('app/less/style.less')
+		.pipe(sourcemaps.init())
 		.pipe(less())
 		.on('error', notify.onError({
 			title: 'LESS ERROR compilation',
 			message: '<%= error.message%>'
 		}))
 		.pipe(autoprefixer({browsers: ['last 15 versions'], cascade: false}))
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('app/css'))
 		.pipe(browserSync.stream());
 });
@@ -87,13 +90,13 @@ gulp.task('browser-sync', ['less', 'jade', 'scripts'], function() {
 });
 // Watch
 gulp.task('watch', function(){
-	gulp.watch('app/less/*.less', ['less']);
+	gulp.watch('app/less/**/*.less', ['less']);
 	gulp.watch('app/jade/**/*.jade',['jade']);
 	gulp.watch('app/html/*.html').on('change', browserSync.reload);
 	gulp.watch('app/js/*.js').on('change', browserSync.reload);
 });
 
-gulp.task('clean', function () {  
+gulp.task('clean', function () {
 	return gulp.src('dist', {read: false})
 		.pipe(clean());
 });
@@ -115,5 +118,5 @@ gulp.task('build',['less','jade','scripts', 'clean'], function(){
 		.pipe(gulp.dest('dist'));
 	var buildImg = gulp.src('app/images/**/*')
 		.pipe(imgMin())
-		.pipe(gulp.dest('dist/images'))
+		.pipe(gulp.dest('dist/images'));
 });
