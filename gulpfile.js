@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	browserSync = require('browser-sync').create(),
 	uglify = require('gulp-uglifyjs'),
+	uglifycss = require('gulp-uglifycss'),
 	clean = require('gulp-clean'),
 	imgMin = require('gulp-image-optimization'),
 	notify = require( 'gulp-notify' );
@@ -70,17 +71,41 @@ gulp.task('jade', function(){
 	}))
 	.pipe(gulp.dest('app/html'));
 });
-// Libs
-gulp.task('scripts', function(){
+// Libs-js
+gulp.task('libjs', function(){
 	return gulp.src([
-		'app/libs/jquery/dist/jquery.min.js'
+		'app/libs/jquery/dist/jquery.js'
 	])
-		.pipe(concat('libs.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('app/js'));
+		.pipe(gulp.dest('app/js/lib'));
 });
+// Libs-js-min
+gulp.task('libjs-min', ['libjs'], function(){
+	return gulp.src('app/js/lib/*.js')
+		.pipe(sourcemaps.init())
+		.pipe(concat('min-libs.js'))
+		.pipe(uglify())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('app/js/lib/min'));
+});
+// Libs-style
+gulp.task('libcss', function(){
+	return gulp.src([
+		'app/libs/normalize-css/normalize.css'
+	])
+		.pipe(gulp.dest('app/css/libcss'));
+});
+// Libs-style-min
+gulp.task('libcss-min', ['libcss'], function(){
+	return gulp.src('app/css/lib/*.css')
+		.pipe(sourcemaps.init())
+		.pipe(concat('min-lib-style.css'))
+		.pipe(uglifycss())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('app/css/lib/min'));
+});
+
 // BrowserSync
-gulp.task('browser-sync', ['less', 'jade', 'scripts'], function() {
+gulp.task('browser-sync', ['less', 'jade', 'libjs-min', 'libcss-min'], function() {
 	browserSync.init({
 		server: {
 			baseDir: "./app"
@@ -105,12 +130,12 @@ gulp.task('default', ['watch','browser-sync']);
 
 // Build
 
-gulp.task('build',['less','jade','scripts', 'clean'], function(){
-	var buildCss = gulp.src('app/css/*')
+gulp.task('build',['less','jade','libjs-min','libcss-min','clean'], function(){
+	var buildCss = gulp.src('app/css/**/*')
 		.pipe(gulp.dest('dist/css'));
 	var buildFonts = gulp.src('app/fonts/**/')
 		.pipe(gulp.dest('dist/fonts'));
-	var buildJs = gulp.src('app/js/*')
+	var buildJs = gulp.src('app/js/**/*')
 		.pipe(gulp.dest('dist/js'));
 	var buildHtml = gulp.src('app/html/*')
 		.pipe(gulp.dest('dist/html'));

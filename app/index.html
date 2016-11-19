@@ -7,15 +7,9 @@
     <meta name="description" content="">
     <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/normalize-4.1.1.css">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css"><!--[if lt IE 9]>
-    <script src='../js/libs/html5shiv.js'></script>
-    <script src='../js/libs/respond-1.4.2.min.js'></script>
-    <script src='http://phpbbex.com/oldies/oldies.js' charset='utf-8'></script>
-    <![endif]-->
+
   </head>
-	<style>	
+	<style>
 		body {
 			background: #E3292C url(http://machineheads.ru.opt-css.1c-bitrix-cdn.ru/images/img/bg.jpg);
 		}
@@ -27,60 +21,76 @@
 		}
 		#titly {
 			margin: 0 auto 50px;
-			border-bottom: 1px dashed #fff;
-			padding: 20px;
+			border-bottom: 4px dashed #fff;
+			margin-top: 20px;
+      padding-bottom: 40px;
 			color: #fff;
 			font-size: 30px;
 			text-align: center;
+      font-family: 'Tahoma';
+      text-transform: uppercase;
+      text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.6);
 		}
-		
+    #mnu {
+      width: 350px;
+      margin: 0 auto;
+    }
 		#mnu ul {
-			margin-left: 140px;
-			
+      padding-left: 0;
+      margin-left: 0;
 		}
 		#mnu li {
 			color: #fff;
 			font-size: 16px;
-			list-style: square;
-			padding-left: 20px;
-			padding-top: 5px;
+			list-style: none;
+			padding-left: 15px;
+			padding-top: 10px;
+      position: relative;
 		}
+    #mnu li:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 17px;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      background: #fff;
+    }
 		#mnu a {
 			color: #fff;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: 'Tahoma';
+      text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.6);
 		}
+    #mnu a + span {
+      color: #222;
+      text-transform: lowercase;
+      text-shadow: none;
+      font-size: 14px;
+      font-family: 'Tahoma';
+      padding-left: 10px;
+    }
 		#mnu a:hover {
 			text-decoration: underline;
 		}
-		#mnu + a {
-			display: inline-block;
-			border: 1px dashed #fff;
-			float: right;
-			padding: 5px;
-			color: #fff;
-			font-size: 16px;
-			margin-top: 40px;
-		}
+
 	</style>
-  
+
   <body>
     <div id="wrapper">
 		<div class="container">
 			<div id="mh"></div>
 			<div id="titly">Название</div>
-		   <div id="mnu">			  
-			<ul>
-				<li><a href="/html">Главная</a></li>
-				
-			</ul>
-		   </div>
-			<a href="https://vk.com/id3715180">by Vasiliy Plukhin</a>
+		  <div id="mnu">
+  			<ul>
+  				<li><a href="/html">Главная</a><span>(index.html)</span></li>
+
+  			</ul>
+		  </div>
 		</div>
     </div>
-    <footer>
-			
-    </footer>
-    
-    <script src="../js/jquery-2.1.3.min.js"></script>
-    <script src="../js/main.js"></script>
+
   </body>
 </html>

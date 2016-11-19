@@ -11,15 +11,14 @@ html(lang='ru')
 		meta(name='description', content='')
 		link(rel='shortcut icon', href='../images/favicon/favicon.ico', type='image/x-icon')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		//- Style
-		link(rel='stylesheet', href='../css/normalize-4.1.1.css')
+		// LibStyle
+		- var libStyle = ['normalize.css'];
+		for libcss in libStyle	
+			link(rel='stylesheet' href='../css/libcss/#{libcss}')
+		// Style
 		link(rel='stylesheet', href='../css/bootstrap.css')
 		link(rel='stylesheet', href='../css/style.css')
-		<!--[if lt IE 9]>
-		<script src='../js/html5shiv.js'></script>
-		<script src='../js/respond-1.4.2.min.js'></script>
-		<script src='http://phpbbex.com/oldies/oldies.js' charset='utf-8'></script>
-		<![endif]-->
+
 	body
 		#wrapper
 			header
@@ -29,6 +28,10 @@ html(lang='ru')
 			+footer
 		.hidden
 			block hidden
-		//- Javascript
-		script(src='../js/libs.js')
+			
+		// Javascript
+		- var libJs = ['jquery.js'];
+		for libjs in libJs
+			script(src='../js/lib/#{libjs}')
+			
 		script(src='../js/main.js')
